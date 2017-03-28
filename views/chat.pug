@@ -1,0 +1,45 @@
+doctype html
+html
+    head 
+        title Chat
+        link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+        link(rel="stylesheet", href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css")
+        script(defer, src="https://code.getmdl.io/1.3.0/material.min.js")
+        style.
+            .mdl-list__item {
+                background: #ededed;
+                border-radius: 10px;
+                height: 70px;
+                margin: 5px;
+            }
+            .messageList {
+                overflow: scroll;
+                height: 500px;
+            }
+            .chat-list {
+                width: 500px;
+            }
+            .chat-card-wide.mdl-card {
+                width: 500px;
+            }
+            .chat-card-wide > .mdl-card__title {
+                color: #fff;
+                height: 50px;
+            }
+            .chat-card-wide > .mdl-card__title > input {
+                color: #000;
+            }
+            .chat-card-wide > .mdl-card__title > textarea {
+                color: #000;
+            }
+            .chat-card-wide > .mdl-card__menu {
+                color: #fff;
+            }
+    body
+        ul.chat-list.mdl-list
+            div#content
+        div#snackbar.mdl-js-snackbar.mdl-snackbar
+            div.mdl-snackbar__text
+            button.mdl-snackbar__action(type="button")
+        script(src="/js/script.js")
+        
