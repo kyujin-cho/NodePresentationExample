@@ -13204,6 +13204,10 @@ class MessageList extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Componen
 
 class Message extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
     render() {
+        const time = new Date(this.props.message.time);
+        let timeString = "";
+        if (time.getHours() <= 12) timeString = time.getHours() + ":" + time.getMinutes() + " AM";else timeString = time.getHours() - 12 + ":" + time.getMinutes() + " PM";
+
         return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
             'li',
             { className: 'mdl-list__item mdl-list__item--three-line' },
@@ -13221,9 +13225,26 @@ class Message extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Component {
                     this.props.message.name
                 ),
                 __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-                    'span',
-                    { className: 'mdl-list__item-text-body' },
-                    this.props.message.message
+                    'div',
+                    { className: 'mdl-grid' },
+                    __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                        'div',
+                        { className: 'mdl-cell mdl-cell--9-col' },
+                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                            'span',
+                            { className: 'mdl-list__item-text-body' },
+                            this.props.message.message
+                        )
+                    ),
+                    __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                        'div',
+                        { className: 'mdl-cell mdl-cell--3-col' },
+                        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                            'span',
+                            { id: 'time-text' },
+                            timeString
+                        )
+                    )
                 )
             )
         );
@@ -13249,7 +13270,8 @@ class SendMessage extends __WEBPACK_IMPORTED_MODULE_1_react___default.a.Componen
             }
             const comment = {
                 name: name.value,
-                message: message.value
+                message: message.value,
+                time: new Date().getTime()
             };
 
             yield socket.emit('message', comment);

@@ -52,12 +52,26 @@ class MessageList extends React.Component {
 
 class Message extends React.Component {
     render() {
+        const time = new Date(this.props.message.time)
+        let timeString = ""
+        if(time.getHours() <= 12)
+            timeString = time.getHours() + ":" + time.getMinutes() + " AM"
+        else
+            timeString = time.getHours() - 12 + ":" + time.getMinutes() + " PM"
+        
         return (
             <li className="mdl-list__item mdl-list__item--three-line">
                 <span className="mdl-list__item-primary-content">
                     <i className="material-icons mdl-list__item-avatar">person</i>
                     <span>{this.props.message.name}</span>
-                    <span className="mdl-list__item-text-body">{this.props.message.message}</span>
+                    <div className="mdl-grid">
+                        <div className="mdl-cell mdl-cell--9-col">
+                            <span className="mdl-list__item-text-body">{this.props.message.message}</span>
+                        </div>
+                        <div className="mdl-cell mdl-cell--3-col">
+                            <span id="time-text">{timeString}</span>
+                        </div>
+                    </div>
                 </span>
             </li>
         )
@@ -80,7 +94,8 @@ class SendMessage extends React.Component {
         }
         const comment = {
             name : name.value, 
-            message : message.value
+            message : message.value,
+            time: new Date().getTime()
         }
         
         await socket.emit('message', comment)
