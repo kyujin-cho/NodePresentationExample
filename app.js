@@ -9,6 +9,8 @@ const bodyParser = require('koa-body')();
 const koa = require('koa');
 const path = require('path');
 const app = module.exports = new koa();
+
+import config from './config'
 // Logger
 app.use(logger());
 
@@ -47,7 +49,7 @@ io.on('connection', socket => {
   })
 })
 
-server.listen(1337)
+server.listen(config.ioPort)
 
 router.get('/', async ctx => {
   await ctx.render('chat.pug')
@@ -63,8 +65,8 @@ router.post('/remove', bodyParser, async ctx => {
 })
 
 if (!module.parent) {
-  app.listen(3000);
-  console.log('listening on port 3000');
+  app.listen(config.httpPort);
+  console.log('listening on port ' + config.httpPort);
 }
 
-console.info('Now listening io on port 1337')
+console.info('Now listening io on port ' + config.ioPort)
