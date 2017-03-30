@@ -3,8 +3,9 @@ const messages = require('./controllers/messages');
 const compress = require('koa-compress');
 const logger = require('koa-logger');
 const serve = require('koa-static');
-const route = require('koa-route');
+const router = require('koa-router')();
 const views = require('koa-views');
+const bodyParser = require('koa-body')();
 const koa = require('koa');
 const path = require('path');
 const app = module.exports = new koa();
@@ -25,9 +26,9 @@ app.use(compress());
 
 app.use(views(__dirname + '/views', {'extension':'pug'}))
 
-app.use(async ctx => {
-  await ctx.render('chat.pug')
-})
+app
+  .use(router.routes())
+  .use(router.allowedMethods())
 
 const server = require('http').Server(app.callback()),
       io = require('socket.io')(server)
@@ -47,6 +48,19 @@ io.on('connection', socket => {
 })
 
 server.listen(1337)
+
+router.get('/', async ctx => {
+  await ctx.render('chat.pug')
+})
+router.get('/remove', async ctx => {
+  await ctx.render('remove.pug')
+})
+router.post('/remove', bodyParser, async ctx => {
+  console.log(ctx.request.body);
+  if(ctx.request.body.password === 'oss-spring-2017')
+    comments = []
+  ctx.redirect('/')
+})
 
 if (!module.parent) {
   app.listen(3000);
