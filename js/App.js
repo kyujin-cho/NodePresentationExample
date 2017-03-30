@@ -54,8 +54,10 @@ class Message extends React.Component {
     render() {
         const time = new Date(this.props.message.time)
         let timeString = ""
-        if(time.getHours() <= 12)
+        if(time.getHours() <= 11) 
             timeString = time.getHours() + ":" + time.getMinutes() + " AM"
+        else if(time.getHours() == 12)
+            timeString = time.getHours() + ":" + time.getMinutes() + " PM"
         else
             timeString = time.getHours() - 12 + ":" + time.getMinutes() + " PM"
         
