@@ -1,6 +1,6 @@
 import io from 'socket.io-client'
 import React from 'react'
-import config from '../config'
+const config = require('../config')
 
 const socket = io.connect(config.ioAddress + ':' + config.ioPort)
 class ChatApp extends React.Component {

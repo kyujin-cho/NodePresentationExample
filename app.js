@@ -9,8 +9,8 @@ const bodyParser = require('koa-body')();
 const koa = require('koa');
 const path = require('path');
 const app = module.exports = new koa();
+const config = require('./config');
 
-import config from './config'
 // Logger
 app.use(logger());
 
